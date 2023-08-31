@@ -65,10 +65,11 @@ GROUP BY rating;
 SELECT COUNT(DISTINCT customer_id) AS number_of_customers
 FROM customer
 WHERE customer_id IN (
-	SELECT customer_id
+	SELECT payment.customer_id
 	FROM payment
-	GROUP BY customer_id, amount
-	HAVING amount > 6.99 AND COUNT(amount) = 1
+	WHERE payment.amount > 6.99
+	GROUP BY payment.customer_id
+	HAVING COUNT(payment.payment_id) = 1
 );
 -- Question 8
 SELECT COUNT(amount) AS free_rentals
